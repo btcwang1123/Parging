@@ -3,4 +3,3 @@ streamlit
 datetime
 folium
 streamlit_folium
-time
