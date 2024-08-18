@@ -1,5 +1,5 @@
 requests
-streamlit<=1.7.0
+streamlit<=1.30.0
 datetime
 folium
 streamlit_folium
