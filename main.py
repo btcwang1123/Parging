@@ -108,7 +108,7 @@ def main():
 
         if filtered_data:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
-            folium_map = folium.Map(location=map_center, zoom_start=14, width=400)
+            folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
 
             for park in filtered_data:
                 folium.Marker(
@@ -120,7 +120,7 @@ def main():
                         平日收費: {park['WEEKDAYS']}<br>
                         假日收費: {park['HOLIDAY']}<br>
                         更新時間: {park['UPDATETIME']}
-                    """, max_width=300),
+                    """, max_width=200),
                     icon=folium.Icon(icon="info-sign")
                 ).add_to(folium_map)
 
