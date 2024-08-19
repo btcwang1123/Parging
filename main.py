@@ -3,6 +3,7 @@ import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
+import time
 
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
@@ -31,8 +32,21 @@ def parse_float(value):
         return 0
 
 def main():
-    global current_time, search_query
+    global current_time
     current_time = datetime.now().strftime("%H:%M")
+
+    search_query = st.text_input("搜索停車場名稱或地址")
+
+    field_options = [
+        "停車場編號", "停車場名稱", "地址", "營業時間", "平日收費", 
+        "假日收費", "大車剩餘車位數", "小車剩餘車位數", "摩托車剩餘車位數", 
+        "殘障車位剩餘數", "充電車位剩餘數", "更新時間"
+    ]
+
+    field_choice = st.multiselect("選擇顯示字段", field_options, 
+                                  default=["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"])
+
+    sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
 
     st.markdown("""
         <style>
@@ -40,25 +54,10 @@ def main():
             max-width: 350px;
             margin: auto;
         }
-        .stTextInput, .stButton {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .stTextInput {
-            width: 100%;
-        }
-        .stButton {
-            width: 25%;
-        }
         </style>
     """, unsafe_allow_html=True)
 
-    search_query = st.text_input("搜索停車場名稱或地址", key="search_input")
-    search_button = st.button("搜尋")
-
-    sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
-
-    def filter_and_display_data():
+    while True:
         data = fetch_data()
         update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
         st.write(f"數據更新時間: {update_time}")
@@ -67,8 +66,6 @@ def main():
 
         if search_query:
             filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-        else:
-            filtered_data = data
 
         if sort_by == "停車場名稱":
             filtered_data.sort(key=lambda x: x['PARKINGNAME'])
@@ -103,19 +100,33 @@ def main():
 
         for i, park in enumerate(filtered_data):
             with cols[i % 1]:
-                st.write(f"## {park['PARKINGNAME']}")
-                st.write(f"地址: {park['ADDRESS']}")
-                st.write(f"平日收費: {park['WEEKDAYS']}")
-                st.write(f"假日收費: {park['HOLIDAY']}")
-                st.write(f"小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}")
-                st.write(f"更新時間: {park['UPDATETIME']}")
+                if "停車場編號" in field_choice:
+                    st.write(f"停車場編號: {park['PARKNO']}")
+                if "停車場名稱" in field_choice:
+                    st.write(f"## {park['PARKINGNAME']}")
+                if "地址" in field_choice:
+                    st.write(f"地址: {park['ADDRESS']}")
+                if "營業時間" in field_choice:
+                    st.write(f"營業時間: {park['BUSINESSHOURS']}")
+                if "平日收費" in field_choice:
+                    st.write(f"平日收費: {park['WEEKDAYS']}")
+                if "假日收費" in field_choice:
+                    st.write(f"假日收費: {park['HOLIDAY']}")
+                if "大車剩餘車位數" in field_choice:
+                    st.write(f"大車剩餘車位數: {park['FREEQUANTITYBIG']}/{park['TOTALQUANTITYBIG']}")
+                if "小車剩餘車位數" in field_choice:
+                    st.write(f"小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}")
+                if "摩托車剩餘車位數" in field_choice:
+                    st.write(f"摩托車剩餘車位數: {park['FREEQUANTITYMOT']}/{park['TOTALQUANTITYMOT']}")
+                if "殘障車位剩餘數" in field_choice:
+                    st.write(f"殘障車位剩餘數: {park['FREEQUANTITYDIS']}/{park['TOTALQUANTITYDIS']}")
+                if "充電車位剩餘數" in field_choice:
+                    st.write(f"充電車位剩餘數: {park['FREEQUANTITYECAR']}/{park['TOTALQUANTITYECAR']}")
+                if "更新時間" in field_choice:
+                    st.write(f"更新時間: {park['UPDATETIME']}")
                 st.write("-" * 40)
 
-    filter_and_display_data()
-
-    # 如果搜索按鈕被按下，重新篩選和顯示數據
-    if search_button:
-        filter_and_display_data()
+        time.sleep(60)
 
 if __name__ == "__main__":
     main()
