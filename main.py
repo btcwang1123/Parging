@@ -37,7 +37,7 @@ def main():
 
     search_query = st.text_input("搜索停車場名稱或地址")
 
-    sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
+    #sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
 
     st.markdown("""
         <style>
@@ -58,14 +58,14 @@ def main():
         if search_query:
             filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
 
-        if sort_by == "停車場名稱":
-            filtered_data.sort(key=lambda x: x['PARKINGNAME'])
-        elif sort_by == "小車剩餘車位數":
-            filtered_data.sort(key=lambda x: parse_int(x['FREEQUANTITY']), reverse=True)
-        elif sort_by == "平日收費":
-            filtered_data.sort(key=lambda x: parse_float(x['WEEKDAYS']))
-        elif sort_by == "假日收費":
-            filtered_data.sort(key=lambda x: parse_float(x['HOLIDAY']))
+        #if sort_by == "停車場名稱":
+        #    filtered_data.sort(key=lambda x: x['PARKINGNAME'])
+        #elif sort_by == "小車剩餘車位數":
+        #    filtered_data.sort(key=lambda x: parse_int(x['FREEQUANTITY']), reverse=True)
+        #elif sort_by == "平日收費":
+        #    filtered_data.sort(key=lambda x: parse_float(x['WEEKDAYS']))
+        #elif sort_by == "假日收費":
+        #    filtered_data.sort(key=lambda x: parse_float(x['HOLIDAY']))
 
         if filtered_data:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
@@ -102,7 +102,7 @@ def main():
     filter_and_display_data()
 
     while True:
-        time.sleep(60)
+        #time.sleep(60)
         filter_and_display_data()
 
 if __name__ == "__main__":
