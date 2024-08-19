@@ -45,7 +45,7 @@ def main():
             vertical-align: middle;
         }
         .stTextInput {
-            width: 100%;
+            width: 70%;
         }
         .stButton {
             width: 25%;
