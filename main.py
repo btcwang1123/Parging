@@ -1,5 +1,5 @@
-import requests
 import streamlit as st
+import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
@@ -13,33 +13,18 @@ def fetch_data():
     if response.status_code == 200:
         return response.json()
     else:
-        st.error("無法取得資料")
+        st.error("無法獲取數據")
         return []
 
 def is_open_now(business_hours):
-    if business_hours == "24H":
-        return True
-    else:
-        try:
-            start_time, end_time = business_hours.split('-')
-            return start_time <= current_time <= end_time
-        except:
-            return False
-
-def get_num_columns():
-    width = st.query_params.get('w', [0])[0]
-    try:
-        width = int(width)
-    except ValueError:
-        width = 0
-    if width > 1200:
-        return 4
-    elif width > 900:
-        return 3
-    elif width > 600:
-        return 2
-    else:
-        return 1
+    #if business_hours == "24H":
+    return True
+    #else:
+       # try:
+            #start_time, end_time = business_hours.split('-')
+           # return start_time <= current_time <= end_time
+       # except:
+           # return False
 
 def parse_int(value):
     try:
@@ -57,23 +42,55 @@ def main():
     global current_time
     current_time = datetime.now().strftime("%H:%M")
 
-    search_query = st.text_input("搜尋停車場名稱或地址")
+    search_query = st.text_input("搜索停車場名稱或地址")
 
     field_options = [
         "停車場編號", "停車場名稱", "地址", "營業時間", "平日收費", 
-        "假日收費", "大車剩餘車位數", "小車剩餘車位數", "機車剩餘車位數", 
-        "殘障車位剩餘數", "充電車位剩餘數", "經度", "緯度", "更新時間"
+        "假日收費", "大車剩餘車位數", "小車剩餘車位數", "摩托車剩餘車位數", 
+        "殘障車位剩餘數", "充電車位剩餘數", "更新時間"
     ]
 
-    field_choice = st.multiselect("選擇顯示欄位", field_options, 
+    field_choice = st.multiselect("選擇顯示字段", field_options, 
                                   default=["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"])
 
-    sort_by = st.selectbox("選擇排序依據", ["停車場名稱", "小車剩餘車位數", "平日收費", "假日收費"])
+    sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
+
+    st.markdown("""
+        <script>
+        function sendSize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const payload = {'width': width, 'height': height};
+            window.parent.postMessage(payload, '*');
+        }
+        window.onload = sendSize;
+        window.onresize = sendSize;
+        </script>
+    """, unsafe_allow_html=True)
+
+    # 獲取 JavaScript 傳遞的窗口寬度
+    
+    
+    #width = st.experimental_get_query_params().get('width', [0])[0]
+    #try:
+     #   width = int(width)
+    #except ValueError:
+    #    width = 0
+
+    #num_columns = 1
+    #if width > 1200:
+     #   num_columns = 4
+   # elif width > 900:
+    #    num_columns = 3
+    #elif width > 600:
+     #   num_columns = 2
+    
+    
 
     while True:
         data = fetch_data()
-        update_time = data[0]['UPDATETIME'] if data else "無法取得更新時間"
-        st.write(f"資料更新時間: {update_time}")
+        update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
+        st.write(f"數據更新時間: {update_time}")
 
         filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
@@ -83,7 +100,7 @@ def main():
         if sort_by == "停車場名稱":
             filtered_data.sort(key=lambda x: x['PARKINGNAME'])
         elif sort_by == "小車剩餘車位數":
-            filtered_data.sort(key=lambda x: parse_int(x['FREEQUANTITY']), reverse = True)
+            filtered_data.sort(key=lambda x: parse_int(x['FREEQUANTITY']), reverse=True)
         elif sort_by == "平日收費":
             filtered_data.sort(key=lambda x: parse_float(x['WEEKDAYS']))
         elif sort_by == "假日收費":
@@ -109,7 +126,8 @@ def main():
 
             folium_static(folium_map)
 
-        num_columns = get_num_columns()
+       # cols = 1
+        num_columns = 1
         cols = st.columns(num_columns)
 
         for i, park in enumerate(filtered_data):
@@ -130,16 +148,16 @@ def main():
                     st.write(f"大車剩餘車位數: {park['FREEQUANTITYBIG']}/{park['TOTALQUANTITYBIG']}")
                 if "小車剩餘車位數" in field_choice:
                     st.write(f"小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}")
-                if "機車剩餘車位數" in field_choice:
-                    st.write(f"機車剩餘車位數: {park['FREEQUANTITYMOT']}/{park['TOTALQUANTITYMOT']}")
+                if "摩托車剩餘車位數" in field_choice:
+                    st.write(f"摩托車剩餘車位數: {park['FREEQUANTITYMOT']}/{park['TOTALQUANTITYMOT']}")
                 if "殘障車位剩餘數" in field_choice:
                     st.write(f"殘障車位剩餘數: {park['FREEQUANTITYDIS']}/{park['TOTALQUANTITYDIS']}")
                 if "充電車位剩餘數" in field_choice:
                     st.write(f"充電車位剩餘數: {park['FREEQUANTITYECAR']}/{park['TOTALQUANTITYECAR']}")
-                if "經度" in field_choice:
-                    st.write(f"經度: {park['LONGITUDE']}")
-                if "緯度" in field_choice:
-                    st.write(f"緯度: {park['LATITUDE']}")
+               # if "經度" in field_choice:
+                #    st.write(f"經度: {park['LONGITUDE']}")
+                #if "緯度" in field_choice:
+                 #   st.write(f"緯度: {park['LATITUDE']}")
                 if "更新時間" in field_choice:
                     st.write(f"更新時間: {park['UPDATETIME']}")
                 st.write("-" * 40)
