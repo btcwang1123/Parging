@@ -108,7 +108,7 @@ def main():
 
         if filtered_data:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
-            folium_map = folium.Map(location=map_center, zoom_start=14)
+            folium_map = folium.Map(location=map_center, zoom_start=14, width=400)
 
             for park in filtered_data:
                 folium.Marker(
