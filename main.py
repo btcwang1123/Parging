@@ -50,8 +50,8 @@ def main():
     #    "殘障車位剩餘數", "充電車位剩餘數", "更新時間"
     #]
 
-    #field_choice = st.multiselect("選擇顯示字段", field_options, 
-    #                              default=["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"])
+    field_choice = st.multiselect("選擇顯示字段", field_options, 
+                                  default=["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"])
 
     #sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
 
