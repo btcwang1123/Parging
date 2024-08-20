@@ -44,29 +44,18 @@ def main():
 
     search_query = st.text_input("搜索停車場名稱或地址")
 
-    field_options = [
-        "停車場編號", "停車場名稱", "地址", "營業時間", "平日收費", 
-        "假日收費", "大車剩餘車位數", "小車剩餘車位數", "摩托車剩餘車位數", 
-        "殘障車位剩餘數", "充電車位剩餘數", "更新時間"
-    ]
+    #field_options = [
+    #    "停車場編號", "停車場名稱", "地址", "營業時間", "平日收費", 
+    #    "假日收費", "大車剩餘車位數", "小車剩餘車位數", "摩托車剩餘車位數", 
+    #    "殘障車位剩餘數", "充電車位剩餘數", "更新時間"
+    #]
 
-    field_choice = st.multiselect("選擇顯示字段", field_options, 
-                                  default=["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"])
+    #field_choice = st.multiselect("選擇顯示字段", field_options, 
+    #                              default=["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"])
 
-    sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
+    #sort_by = st.selectbox("選擇排序依據", ["小車剩餘車位數", "平日收費", "假日收費"])
 
-    st.markdown("""
-        <script>
-        function sendSize() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const payload = {'width': width, 'height': height};
-            window.parent.postMessage(payload, '*');
-        }
-        window.onload = sendSize;
-        window.onresize = sendSize;
-        </script>
-    """, unsafe_allow_html=True)
+   
 
     # 獲取 JavaScript 傳遞的窗口寬度
     
@@ -97,14 +86,14 @@ def main():
         if search_query:
             filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
 
-        if sort_by == "停車場名稱":
-            filtered_data.sort(key=lambda x: x['PARKINGNAME'])
-        elif sort_by == "小車剩餘車位數":
-            filtered_data.sort(key=lambda x: parse_int(x['FREEQUANTITY']), reverse=True)
-        elif sort_by == "平日收費":
-            filtered_data.sort(key=lambda x: parse_float(x['WEEKDAYS']))
-        elif sort_by == "假日收費":
-            filtered_data.sort(key=lambda x: parse_float(x['HOLIDAY']))
+        #if sort_by == "停車場名稱":
+        #    filtered_data.sort(key=lambda x: x['PARKINGNAME'])
+        #elif sort_by == "小車剩餘車位數":
+        #    filtered_data.sort(key=lambda x: parse_int(x['FREEQUANTITY']), reverse=True)
+        #elif sort_by == "平日收費":
+        #    filtered_data.sort(key=lambda x: parse_float(x['WEEKDAYS']))
+        #elif sort_by == "假日收費":
+        #    filtered_data.sort(key=lambda x: parse_float(x['HOLIDAY']))
 
         if filtered_data:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
