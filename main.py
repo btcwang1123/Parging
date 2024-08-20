@@ -116,10 +116,10 @@ def main():
 
             folium_static(folium_map)
 
-       # cols = 1
-        num_columns = 1
-        cols = st.columns(num_columns)
-
+        #cols = 1
+        #num_columns = 1
+        #cols = st.columns(num_columns)
+"""
         for i, park in enumerate(filtered_data):
             with cols[i % num_columns]:
                 if "停車場編號" in field_choice:
@@ -151,8 +151,8 @@ def main():
                 if "更新時間" in field_choice:
                     st.write(f"更新時間: {park['UPDATETIME']}")
                 st.write("-" * 40)
-
-        time.sleep(60)
+"""
+        #time.sleep(60)
 
 if __name__ == "__main__":
     main()
