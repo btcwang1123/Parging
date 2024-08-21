@@ -119,39 +119,7 @@ def main():
         #cols = 1
         #num_columns = 1
         #cols = st.columns(num_columns)
-"""
-        for i, park in enumerate(filtered_data):
-            with cols[i % num_columns]:
-                if "停車場編號" in field_choice:
-                    st.write(f"停車場編號: {park['PARKNO']}")
-                if "停車場名稱" in field_choice:
-                    st.write(f"## {park['PARKINGNAME']}")
-                if "地址" in field_choice:
-                    st.write(f"地址: {park['ADDRESS']}")
-                if "營業時間" in field_choice:
-                    st.write(f"營業時間: {park['BUSINESSHOURS']}")
-                if "平日收費" in field_choice:
-                    st.write(f"平日收費: {park['WEEKDAYS']}")
-                if "假日收費" in field_choice:
-                    st.write(f"假日收費: {park['HOLIDAY']}")
-                if "大車剩餘車位數" in field_choice:
-                    st.write(f"大車剩餘車位數: {park['FREEQUANTITYBIG']}/{park['TOTALQUANTITYBIG']}")
-                if "小車剩餘車位數" in field_choice:
-                    st.write(f"小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}")
-                if "摩托車剩餘車位數" in field_choice:
-                    st.write(f"摩托車剩餘車位數: {park['FREEQUANTITYMOT']}/{park['TOTALQUANTITYMOT']}")
-                if "殘障車位剩餘數" in field_choice:
-                    st.write(f"殘障車位剩餘數: {park['FREEQUANTITYDIS']}/{park['TOTALQUANTITYDIS']}")
-                if "充電車位剩餘數" in field_choice:
-                    st.write(f"充電車位剩餘數: {park['FREEQUANTITYECAR']}/{park['TOTALQUANTITYECAR']}")
-               # if "經度" in field_choice:
-                #    st.write(f"經度: {park['LONGITUDE']}")
-                #if "緯度" in field_choice:
-                 #   st.write(f"緯度: {park['LATITUDE']}")
-                if "更新時間" in field_choice:
-                    st.write(f"更新時間: {park['UPDATETIME']}")
-                st.write("-" * 40)
-"""
+
         #time.sleep(60)
 
 if __name__ == "__main__":
