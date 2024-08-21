@@ -46,7 +46,7 @@ def main():
 
     if search_query:
         filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-        if filtered_data == NULL:
+        if filtered_data == []:
              filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     if filtered_data:
