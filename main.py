@@ -34,9 +34,9 @@ def main():
     global current_time
     current_time = datetime.now().strftime("%H:%M")
 
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([2, 1])
     with col1:
-        search_query = st.text_input("搜索停車場名稱或地址")
+        search_query = st.text_input("搜索停車場名稱或地址", max_chars=20)
     with col2:
         search_button = st.button("搜尋")
 
