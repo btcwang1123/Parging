@@ -34,16 +34,44 @@ def main():
     global current_time
     current_time = datetime.now().strftime("%H:%M")
 
-    search_query = st.text_input("搜索停車場名稱或地址")
-    search_button = st.button("搜尋")
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        search_query = st.text_input("搜索停車場名稱或地址")
+    with col2:
+        search_button = st.button("搜尋")
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
-    if search_button:
-        data = fetch_data()
-        update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
-        st.write(f"數據更新時間: {update_time}")
+    data = fetch_data()
+    update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
+    st.write(f"數據更新時間: {update_time}")
 
+    filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+
+    if search_query:
+        filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
+
+    if filtered_data:
+        map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
+        folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
+
+        for park in filtered_data:
+            folium.Marker(
+                location=[float(park['LATITUDE']), float(park['LONGITUDE'])],
+                popup=folium.Popup(f"""
+                    停車場名稱: {park['PARKINGNAME']}<br>
+                    地址: {park['ADDRESS']}<br>
+                    小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}<br>
+                    平日收費: {park['WEEKDAYS']}<br>
+                    假日收費: {park['HOLIDAY']}<br>
+                    更新時間: {park['UPDATETIME']}
+                """, max_width=200),
+                icon=folium.Icon(icon="info-sign")
+            ).add_to(folium_map)
+
+        folium_static(folium_map, width=350)
+
+    if search_button:
         filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
         if search_query:
