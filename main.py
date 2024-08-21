@@ -46,8 +46,8 @@ def main():
 
     if search_query:
         filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-    else:
-        filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+        if filtered_data == NULL:
+             filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     if filtered_data:
         map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
