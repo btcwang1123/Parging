@@ -3,7 +3,6 @@ import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
-import time
 
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
@@ -36,10 +35,11 @@ def main():
     current_time = datetime.now().strftime("%H:%M")
 
     search_query = st.text_input("搜索停車場名稱或地址")
+    search_button = st.button("搜尋")
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
-    while True:
+    if search_button:
         data = fetch_data()
         update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
         st.write(f"數據更新時間: {update_time}")
@@ -68,8 +68,6 @@ def main():
                 ).add_to(folium_map)
 
             folium_static(folium_map, width=350)
-
-        time.sleep(60)
 
 if __name__ == "__main__":
     main()
