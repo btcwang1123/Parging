@@ -59,12 +59,12 @@ def main():
                 popup=folium.Popup(f"""
                     <div style="font-size: 16px;">
                     停車場名稱: {park['PARKINGNAME']}<br>
-                    地址: {park['ADDRESS']}<br>
                     小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}<br>
-                    平日收費: {park['WEEKDAYS']}<br>
-                    假日收費: {park['HOLIDAY']}
                     </div>
-                """, max_width=200),
+                    地址: {park['ADDRESS']}<br>
+                    平日收費: {park['WEEKDAYS']}<br>
+                    假日收費: {park['HOLIDAY']}                  
+                """, max_width=220),
                 icon=folium.Icon(icon="info-sign")
             ).add_to(folium_map)
 
