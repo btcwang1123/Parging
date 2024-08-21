@@ -58,8 +58,8 @@ def main():
                 location=[float(park['LATITUDE']), float(park['LONGITUDE'])],
                 popup=folium.Popup(f"""
                     <div style="font-size: 16px;">
-                    停車場名稱: {park['PARKINGNAME']}<br>
-                    小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}<br>
+                    {park['PARKINGNAME']}<br>
+                    剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}<br>
                     </div>
                     地址: {park['ADDRESS']}<br>
                     平日收費: {park['WEEKDAYS']}<br>
