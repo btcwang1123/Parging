@@ -81,10 +81,13 @@ def main():
 if __name__ == "__main__":
     coordinates = get_current_gps_coordinates()
     if coordinates is not None:
-      latitude, longitude = coordinates
+        latitude, longitude = coordinates
       print(f"Your current GPS coordinates are:")
       print(f"Latitude,Longitude: {latitude},{longitude}")
+        st.write(f"Your current GPS coordinates are:")
+        st.write(f"Latitude,Longitude: {latitude},{longitude}")
 
     else:
-        print("Unable to retrieve your GPS coordinates.")
+        #print("Unable to retrieve your GPS coordinates.")
+        st.write(f"Unable to retrieve your GPS coordinates.")
     main()
