@@ -3,6 +3,7 @@ import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
+from geopy.distance import geodesic
 
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
@@ -34,7 +35,10 @@ def main():
     global current_time
     current_time = datetime.now().strftime("%H:%M")
 
-    search_query = st.text_input("搜索停車場名稱或地址", key="search_query")
+    # 獲取用戶的經緯度
+    user_lat = st.number_input("輸入您的緯度", value=24.8138)
+    user_lon = st.number_input("輸入您的經度", value=120.9675)
+    search_radius = st.slider("搜索半徑 (公里)", 0.1, 5.0, 1.0)
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
@@ -42,14 +46,22 @@ def main():
     update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
     st.write(f"數據更新時間: {update_time}")
 
-    filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
-
-    if search_query:
-        filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
+    user_location = (user_lat, user_lon)
+    filtered_data = []
+    for park in data:
+        park_location = (float(park['LATITUDE']), float(park['LONGITUDE']))
+        distance = geodesic(user_location, park_location).km
+        if distance <= search_radius:
+            filtered_data.append(park)
 
     if filtered_data:
-        map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
-        folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
+        folium_map = folium.Map(location=user_location, zoom_start=14, width=350)
+
+        folium.Marker(
+            location=user_location,
+            popup="您的位置",
+            icon=folium.Icon(icon="user")
+        ).add_to(folium_map)
 
         for park in filtered_data:
             folium.Marker(
