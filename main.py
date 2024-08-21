@@ -41,26 +41,6 @@ def main():
 
     data = fetch_data()
 
-    if filtered_data:
-        map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
-        folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
-
-        for park in filtered_data:
-            folium.Marker(
-                location=[float(park['LATITUDE']), float(park['LONGITUDE'])],
-                popup=folium.Popup(f"""
-                    停車場名稱: {park['PARKINGNAME']}<br>
-                    地址: {park['ADDRESS']}<br>
-                    小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}<br>
-                    平日收費: {park['WEEKDAYS']}<br>
-                    假日收費: {park['HOLIDAY']}<br>
-                    更新時間: {park['UPDATETIME']}
-                """, max_width=200),
-                icon=folium.Icon(icon="info-sign")
-            ).add_to(folium_map)
-
-        folium_static(folium_map, width=350)
-
     if search_button:
         data = fetch_data()
         update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
