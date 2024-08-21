@@ -3,9 +3,17 @@ import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
+import geocoder
 
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
+
+def get_current_gps_coordinates():
+    g = geocoder.ip('me')#this function is used to find the current information using our IP Add
+    if g.latlng is not None: #g.latlng tells if the coordiates are found or not
+        return g.latlng
+    else:
+        return None
 
 def fetch_data():
     response = requests.get(url)
@@ -71,4 +79,12 @@ def main():
         folium_static(folium_map, width=350)
 
 if __name__ == "__main__":
+    coordinates = get_current_gps_coordinates()
+    if coordinates is not None:
+      latitude, longitude = coordinates
+      print(f"Your current GPS coordinates are:")
+      print(f"Latitude,Longitude: {latitude},{longitude}")
+
+    else:
+        print("Unable to retrieve your GPS coordinates.")
     main()
