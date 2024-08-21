@@ -9,8 +9,8 @@ import geocoder
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
 def get_current_gps_coordinates():
-    g = geocoder.ip('me')#this function is used to find the current information using our IP Add
-    if g.latlng is not None: #g.latlng tells if the coordiates are found or not
+    g = geocoder.ip('me')  # this function is used to find the current information using our IP Add
+    if g.latlng is not None:  # g.latlng tells if the coordinates are found or not
         return g.latlng
     else:
         return None
@@ -54,8 +54,8 @@ def main():
 
     if search_query:
         filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-        if filtered_data == []:
-             filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+        if not filtered_data:
+            filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     if filtered_data:
         map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
@@ -82,12 +82,10 @@ if __name__ == "__main__":
     coordinates = get_current_gps_coordinates()
     if coordinates is not None:
         latitude, longitude = coordinates
-      print(f"Your current GPS coordinates are:")
-      print(f"Latitude,Longitude: {latitude},{longitude}")
+        print(f"Your current GPS coordinates are:")
+        print(f"Latitude,Longitude: {latitude},{longitude}")
         st.write("Your current GPS coordinates are:")
         st.write(f"Latitude,Longitude: {latitude},{longitude}")
-
     else:
-        #print("Unable to retrieve your GPS coordinates.")
         st.write("Unable to retrieve your GPS coordinates.")
     main()
