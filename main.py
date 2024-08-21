@@ -39,8 +39,6 @@ def main():
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
-    data = fetch_data()
-
     if search_button:
         data = fetch_data()
         update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
