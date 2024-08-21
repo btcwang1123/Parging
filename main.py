@@ -72,7 +72,7 @@ def main():
                     地址: {park['ADDRESS']}<br>
                     小車剩餘車位數: {park['FREEQUANTITY']}/{park['TOTALQUANTITY']}<br>
                     平日收費: {park['WEEKDAYS']}<br>
-                    假日收費: {park['HOLIDAY']}<br>]}
+                    假日收費: {park['HOLIDAY']}
                 """, max_width=200),
                 icon=folium.Icon(icon="info-sign")
             ).add_to(folium_map)
