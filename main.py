@@ -41,14 +41,6 @@ def main():
 
     data = fetch_data()
 
-    update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
-    st.write(f"數據更新時間: {update_time}")
-
-    filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
-
-    if search_query:
-        filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-
     if filtered_data:
         map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
         folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
