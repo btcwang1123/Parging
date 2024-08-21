@@ -120,7 +120,7 @@ def main():
         #num_columns = 1
         #cols = st.columns(num_columns)
 
-        #time.sleep(60)
+        time.sleep(60)
 
 if __name__ == "__main__":
     main()
