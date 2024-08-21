@@ -3,4 +3,3 @@ streamlit<=1.7.0
 datetime
 folium
 streamlit_folium
-geodesic
