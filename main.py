@@ -62,7 +62,7 @@ def main():
             icon=folium.Icon(icon="user")
         ).add_to(folium_map)
         else:
-            st.error("無法獲取您的位置，請確保瀏覽器允許訪問位置資訊。")
+            st.write("無法獲取您的位置，請確保瀏覽器允許訪問位置資訊。")
 
         for park in filtered_data:
             folium.Marker(
