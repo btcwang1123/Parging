@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
-from streamlit_geolocation import geolocation
+from streamlit_geolocation import streamlit_geolocation
 
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
