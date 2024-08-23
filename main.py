@@ -36,7 +36,7 @@ def main():
     location = streamlit_geolocation()
     current_time = datetime.now().strftime("%H:%M")
 
-    search_query = st.text_input("", placeholder="輸入停車場名稱或地址", key="search_query")
+    #search_query = st.text_input("", placeholder="輸入停車場名稱或地址", key="search_query")
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
@@ -53,7 +53,8 @@ def main():
 
     if filtered_data:
         if (location['latitude'] and location['longitude']):
-            map_center = [(float(location['latitude']) + float(filtered_data[0]['LATITUDE'])) / 2, (float(location['longitude']) + float(filtered_data[0]['LONGITUDE'])) /2]
+            #map_center = [(float(location['latitude']) + float(filtered_data[0]['LATITUDE'])) / 2, (float(location['longitude']) + float(filtered_data[0]['LONGITUDE'])) /2]
+            map_center = [float(location['latitude'], float(location['longitude']]
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
