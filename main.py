@@ -46,11 +46,13 @@ def main():
 
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
-    if search_query:
-        filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-        if filtered_data == []:
-             filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+    #if search_query:
+    #    filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
+    #    if filtered_data == []:
+    #         filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
+    filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+    
     if filtered_data:
         if (location['latitude'] and location['longitude']):
             #map_center = [(float(location['latitude']) + float(filtered_data[0]['LATITUDE'])) / 2, (float(location['longitude']) + float(filtered_data[0]['LONGITUDE'])) /2]
