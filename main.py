@@ -36,11 +36,7 @@ def main():
     location = streamlit_geolocation()
     current_time = datetime.now().strftime("%H:%M")
 
-    col1, col2 = st.columns([1, 3])
-    with col1:
-        st.write("搜索停車場名稱或地址:")
-    with col2:
-        search_query = st.text_input("", placeholder="輸入停車場名稱或地址", key="search_query")
+    search_query = st.text_input("", placeholder="輸入停車場名稱或地址", key="search_query")
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
