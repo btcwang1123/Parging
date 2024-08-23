@@ -53,7 +53,7 @@ def main():
 
     if filtered_data:
         if (location['latitude'] and location['longitude']):
-            map_center = [(float(location['latitude'] + float(filtered_data[0]['LATITUDE']) / 2), (float(location['longitude'] + float(filtered_data[0]['LONGITUDE']) /2)]
+            map_center = [(float(location['latitude']) + float(filtered_data[0]['LATITUDE'])) / 2), (float(location['longitude']) + float(filtered_data[0]['LONGITUDE'])) /2]
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
