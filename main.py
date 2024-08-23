@@ -33,6 +33,7 @@ def parse_float(value):
 
 def main():
     global current_time
+    location = streamlit_geolocation()
     current_time = datetime.now().strftime("%H:%M")
 
     search_query = st.text_input("搜索停車場名稱或地址", key="search_query")
@@ -51,8 +52,17 @@ def main():
              filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     if filtered_data:
-        map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
-        folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
+        if (location['latitude'] and location['longitude']):
+            map_center = [float(location['latitude']), float(location['longitude'])]
+            folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
+            folium.Marker(
+                location=[location['latitude'], location['longitude']],
+                popup="Your Location",
+                icon=folium.Icon(color="red", icon="info-sign")
+            ).add_to(folium_map)
+        else:
+            map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
+            folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
 
         for park in filtered_data:
             folium.Marker(
@@ -70,15 +80,10 @@ def main():
             ).add_to(folium_map)
 
         # Get user's current location
-        location = streamlit_geolocation()
-        st.write(location)
+        #location = streamlit_geolocation()
+        #st.write(location)
 
-        if (location['latitude'] and location['longitude']):
-            folium.Marker(
-                location=[location['latitude'], location['longitude']],
-                popup="Your Location",
-                icon=folium.Icon(color="red", icon="info-sign")
-            ).add_to(folium_map)
+        
 
         folium_static(folium_map, width=350)
 
