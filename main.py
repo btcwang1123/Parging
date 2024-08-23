@@ -71,6 +71,7 @@ def main():
 
         # Get user's current location
         location = streamlit_geolocation()
+        st.write(location)
 
         if location:
             folium.Marker(
