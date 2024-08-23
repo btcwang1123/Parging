@@ -74,7 +74,7 @@ def main():
 
         if location:
             folium.Marker(
-                location=[location['lat'], location['lon']],
+                location=[location['latitude'], location['longitude']],
                 popup="Your Location",
                 icon=folium.Icon(color="red", icon="info-sign")
             ).add_to(folium_map)
