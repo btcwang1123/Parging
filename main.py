@@ -70,7 +70,7 @@ def main():
             ).add_to(folium_map)
 
         # Get user's current location
-        location = geolocation()
+        location = streamlit_geolocation()
 
         if location:
             folium.Marker(
