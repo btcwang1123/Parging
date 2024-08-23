@@ -3,17 +3,10 @@ import requests
 from datetime import datetime
 import folium
 from streamlit_folium import folium_static
-import geocoder
+from streamlit_geolocation import geolocation
 
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
-
-def get_current_gps_coordinates():
-    g = geocoder.ip('me')  # this function is used to find the current information using our IP Add
-    if g.latlng is not None:  # g.latlng tells if the coordinates are found or not
-        return g.latlng
-    else:
-        return None
 
 def fetch_data():
     response = requests.get(url)
@@ -54,8 +47,8 @@ def main():
 
     if search_query:
         filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
-        if not filtered_data:
-            filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+        if filtered_data == []:
+             filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     if filtered_data:
         map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
@@ -76,16 +69,17 @@ def main():
                 icon=folium.Icon(icon="info-sign")
             ).add_to(folium_map)
 
+        # Get user's current location
+        location = geolocation()
+
+        if location:
+            folium.Marker(
+                location=[location['lat'], location['lon']],
+                popup="Your Location",
+                icon=folium.Icon(color="red", icon="info-sign")
+            ).add_to(folium_map)
+
         folium_static(folium_map, width=350)
 
 if __name__ == "__main__":
-    coordinates = get_current_gps_coordinates()
-    if coordinates is not None:
-        latitude, longitude = coordinates
-        print(f"Your current GPS coordinates are:")
-        print(f"Latitude,Longitude: {latitude},{longitude}")
-        st.write("Your current GPS coordinates are:")
-        st.write(f"Latitude,Longitude: {latitude},{longitude}")
-    else:
-        st.write("Unable to retrieve your GPS coordinates.")
     main()
