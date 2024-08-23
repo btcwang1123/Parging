@@ -73,7 +73,7 @@ def main():
         location = streamlit_geolocation()
         st.write(location)
 
-        if location:
+        if (location['latitude'] && location['longitude']):
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
                 popup="Your Location",
