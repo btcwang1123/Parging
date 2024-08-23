@@ -5,6 +5,16 @@ import folium
 from streamlit_folium import folium_static
 from streamlit_geolocation import streamlit_geolocation
 
+# 自定義 CSS 來增加按鈕大小
+st.markdown("""
+    <style>
+    .big-button {
+        padding: 20px 40px;
+        font-size: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
@@ -83,9 +93,12 @@ def main():
         #location = streamlit_geolocation()
         #st.write(location)
 
-        
-
         folium_static(folium_map, width=350)
+
+    # 添加一個大按鈕來獲取 GPS 定位
+    if st.button("獲取 GPS 定位", key="gps_button", help="點擊以獲取您的當前位置", css_class="big-button"):
+        location = streamlit_geolocation()
+        st.write(location)
 
 if __name__ == "__main__":
     main()
