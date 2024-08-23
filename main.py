@@ -5,16 +5,6 @@ import folium
 from streamlit_folium import folium_static
 from streamlit_geolocation import streamlit_geolocation
 
-# 自定義 CSS 來增加按鈕大小
-st.markdown("""
-    <style>
-    .big-button {
-        padding: 20px 40px;
-        font-size: 20px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
@@ -46,13 +36,17 @@ def main():
     location = streamlit_geolocation()
     current_time = datetime.now().strftime("%H:%M")
 
-    search_query = st.text_input("搜索停車場名稱或地址", key="search_query")
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        st.write("搜索停車場名稱或地址:")
+    with col2:
+        search_query = st.text_input("", placeholder="輸入停車場名稱或地址", key="search_query")
 
     field_choice = ["停車場名稱", "地址", "小車剩餘車位數", "平日收費", "假日收費"]
 
     data = fetch_data()
     update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
-    st.write(f"數據更新時間: {update_time}")
+    #st.write(f"數據更新時間: {update_time}")
 
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
@@ -93,12 +87,10 @@ def main():
         #location = streamlit_geolocation()
         #st.write(location)
 
-        folium_static(folium_map, width=350)
+        
 
-    # 添加一個大按鈕來獲取 GPS 定位
-    if st.button("獲取 GPS 定位", key="gps_button", help="點擊以獲取您的當前位置", css_class="big-button"):
-        location = streamlit_geolocation()
-        st.write(location)
+        folium_static(folium_map, width=350)
+        st.write(f"數據更新時間: {update_time}")
 
 if __name__ == "__main__":
     main()
