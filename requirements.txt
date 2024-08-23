@@ -4,3 +4,4 @@ datetime
 folium
 streamlit_folium
 geocoder
+streamlit-geolocation
