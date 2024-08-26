@@ -56,7 +56,7 @@ def main():
                              color='blue', # Circle 顏色
                              radius=500, # Circle 寬度
                              fill=True, # 填滿中間區域
-                             fill_opacity=0.7 # 設定透明度:1是完全不透
+                             fill_opacity=0.2 # 設定透明度:1是完全不透
                              ))
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
