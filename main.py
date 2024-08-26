@@ -17,7 +17,7 @@ st.markdown(
     <style>
     .main .block-container {
         max-width: 350px;
-        max-height: 800px;
+        max-height: 750px;
         padding-top: 1rem;
         padding-right: 1rem;
         padding-left: 1rem;
@@ -135,7 +135,7 @@ def main():
                 icon=folium.Icon(color=icon_color, icon="info-sign")
             ).add_to(folium_map)
 
-        folium_static(folium_map, width=350)
+        folium_static(folium_map, width=330)
         #st.write(f"數據更新時間: {update_time}")
 
 if __name__ == "__main__":
