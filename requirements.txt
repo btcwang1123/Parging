@@ -5,6 +5,5 @@ folium
 streamlit_folium
 geocoder
 streamlit-geolocation
-protobuf==3.20.3
-BeautifulSoup
+
 
