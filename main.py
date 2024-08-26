@@ -5,6 +5,8 @@ import folium
 from streamlit_folium import folium_static
 from streamlit_geolocation import streamlit_geolocation
 
+#GPS + Google Map版本完成, 現在要新增搜尋的功能
+
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
