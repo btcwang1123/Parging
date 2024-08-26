@@ -49,7 +49,7 @@ def main():
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
-                popup="Your Location",
+                popup="🚗Your Location",
                 #icon=folium.Icon(color="red", icon="fa car")
                 icon=folium.Icon(icon='paper-plane', prefix='fa')
             ).add_to(folium_map)
