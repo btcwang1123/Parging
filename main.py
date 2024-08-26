@@ -54,10 +54,11 @@ def main():
 
     if highlight_data:
         map_center = [float(highlight_data[0]['LATITUDE']), float(highlight_data[0]['LONGITUDE'])]
-    else if (location['latitude'] and location['longitude']):
-        map_center = [float(location['latitude']), float(location['longitude'])]
     else:
-        map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
+        if (location['latitude'] and location['longitude']):
+            map_center = [float(location['latitude']), float(location['longitude'])]
+        else:
+            map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
 
     if filtered_data:
         if (location['latitude'] and location['longitude']):
