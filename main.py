@@ -5,8 +5,6 @@ import folium
 from streamlit_folium import folium_static
 from streamlit_geolocation import streamlit_geolocation
 
-#GPS + Google Map版本完成, 現在要新增搜尋的功能
-
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
@@ -43,7 +41,14 @@ def main():
     data = fetch_data()
     update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
 
+    # 添加側拉式搜尋框
+    st.sidebar.title("搜尋停車場")
+    search_query = st.sidebar.text_input("輸入停車場名稱或地址")
+
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
+
+    if search_query:
+        filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
 
     if filtered_data:
         if (location['latitude'] and location['longitude']):
@@ -86,7 +91,7 @@ def main():
                     地址: {park['ADDRESS']}<br>
                     平日收費: {park['WEEKDAYS']}<br>
                     假日收費: {park['HOLIDAY']}<br>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank" >
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank" style="text-align: center;">
                         <img src="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png" alt="導航" style="width:50px;height:50px;"><br>🚥導航
                     </a>
                     </div>
