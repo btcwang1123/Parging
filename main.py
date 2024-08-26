@@ -67,7 +67,7 @@ def main():
                     平日收費: {park['WEEKDAYS']}<br>
                     假日收費: {park['HOLIDAY']}<br>
                     <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank">
-                        <img src="https://img.lovepik.com/png/20231119/vw-beetle-icon-street-sign-icon-illustration-design-illustration-illustration_641521_wh860.png" alt="導航" style="width:50px;height:50px;">
+                        <img src="https://img.lovepik.com/png/20231119/vw-beetle-icon-street-sign-icon-illustration-design-illustration-illustration_641521_wh860.png" alt="導航" style="width:50px;height:50px;"><br>導航
                     </a>
                     </div>
                 """, max_width=220),
