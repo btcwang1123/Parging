@@ -41,7 +41,7 @@ def main():
     data = fetch_data()
     update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
 
-    st.write("使用側邊欄進行搜尋")
+    #st.write("使用側邊欄進行搜尋")
 
     # 添加側拉式搜尋框
     st.sidebar.title("搜尋停車場")
@@ -50,11 +50,18 @@ def main():
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     if search_query:
-        filtered_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
+        highlight_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
+
+    if highlight_data:
+        map_center = [float(highlight_data[0]['LATITUDE']), float(highlight_data[0]['LONGITUDE'])]
+    else if (location['latitude'] and location['longitude']):
+        map_center = [float(location['latitude']), float(location['longitude'])]
+    else:
+        map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
 
     if filtered_data:
         if (location['latitude'] and location['longitude']):
-            map_center = [float(location['latitude']), float(location['longitude'])]
+            #map_center = [float(location['latitude']), float(location['longitude'])]
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
@@ -69,7 +76,7 @@ def main():
                              fill_opacity=0.1 # 設定透明度:1是完全不透
                              ))
         else:
-            map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
+            #map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
 
         for park in filtered_data:
