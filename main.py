@@ -9,7 +9,7 @@ from streamlit_geolocation import streamlit_geolocation
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
 # 設置頁面配置
-st.set_page_config(layout="centered", initial_sidebar_state="expanded", page_title="停車場搜尋", page_icon="🚗")
+st.set_page_config(layout="centered", initial_sidebar_state="collapsed", page_title="停車場搜尋", page_icon="🚗")
 
 # 使用 CSS 設置視窗大小
 st.markdown(
