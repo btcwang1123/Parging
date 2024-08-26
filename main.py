@@ -50,7 +50,7 @@ def main():
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
                 popup="Your Location",
-                icon=folium.Icon(color="red", icon="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png")
+                icon=folium.Icon(color="red", icon="paper - plane", prefix='fa')
             ).add_to(folium_map)
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
