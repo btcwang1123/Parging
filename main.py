@@ -113,6 +113,7 @@ def main():
 
         folium_static(folium_map, width=350)
         #st.write(f"數據更新時間: {update_time}")
+        highlight_data =[]
 
 if __name__ == "__main__":
     main()
