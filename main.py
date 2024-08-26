@@ -50,9 +50,14 @@ def main():
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
                 popup="🚗Your Location",
-                #icon=folium.Icon(color="red", icon="fa car")
                 icon=folium.Icon(icon='paper-plane', prefix='fa')
             ).add_to(folium_map)
+            folium_map.add_child(folium.Circle(location=map_center,
+                             color='blue', # Circle 顏色
+                             radius=500, # Circle 寬度
+                             fill=True, # 填滿中間區域
+                             fill_opacity=0.7 # 設定透明度:1是完全不透
+                             ))
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
