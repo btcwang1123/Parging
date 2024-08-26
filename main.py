@@ -57,6 +57,17 @@ def main():
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
 
         for park in filtered_data:
+            free_quantity = parse_int(park['FREEQUANTITY'])
+            total_quantity = parse_int(park['TOTALQUANTITY'])
+            if total_quantity == 0:
+                icon_color = "gray"
+            elif free_quantity == 0:
+                icon_color = "red"
+            elif free_quantity <= total_quantity * 0.2:
+                icon_color = "yellow"
+            else:
+                icon_color = "green"
+
             folium.Marker(
                 location=[float(park['LATITUDE']), float(park['LONGITUDE'])],
                 popup=folium.Popup(f"""
@@ -71,7 +82,7 @@ def main():
                     </a>
                     </div>
                 """, max_width=220),
-                icon=folium.Icon(icon="info-sign")
+                icon=folium.Icon(color=icon_color, icon="info-sign")
             ).add_to(folium_map)
 
         folium_static(folium_map, width=350)
