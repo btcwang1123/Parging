@@ -46,16 +46,11 @@ def main():
 
     # 添加側拉式搜尋框
     st.sidebar.title("搜尋停車場")
-    if 'search_query' not in st.session_state:
-        st.session_state.search_query = ""
-    search_query = st.sidebar.text_input("輸入停車場名稱或地址", value=st.session_state.search_query)
+    search_query = st.sidebar.text_input("輸入停車場名稱或地址")
 
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
     highlight_data =[]
-
-    if location:
-        st.session_state.search_query = ""
 
     if search_query:
         highlight_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
@@ -119,6 +114,7 @@ def main():
 
         folium_static(folium_map, width=350)
         #st.write(f"數據更新時間: {update_time}")
+        search_query = ''
 
 if __name__ == "__main__":
     main()
