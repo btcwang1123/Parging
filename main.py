@@ -55,6 +55,7 @@ def main():
             folium_map.add_child(folium.Circle(location=map_center,
                              color='blue', # Circle 顏色
                              radius=300, # Circle 寬度
+                             opacity=0.1,
                              fill=True, # 填滿中間區域
                              fill_opacity=0.1 # 設定透明度:1是完全不透
                              ))
