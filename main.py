@@ -49,6 +49,8 @@ def main():
 
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
 
+    highlight_data =[]
+
     if search_query:
         highlight_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
 
