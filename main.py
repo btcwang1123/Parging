@@ -67,7 +67,7 @@ def main():
                     平日收費: {park['WEEKDAYS']}<br>
                     假日收費: {park['HOLIDAY']}<br>
                     <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank">
-                        <img src="https://drive.google.com/file/d/1d5P1KrKO-XHZ6KXFo92tvzAsVGkZT3l9/view?usp=sharing" alt="導航" style="width:50px;height:50px;">
+                        <img src="img/car_icon.png" alt="導航" style="width:50px;height:50px;">
                     </a>
                     </div>
                 """, max_width=220),
