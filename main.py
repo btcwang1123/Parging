@@ -50,7 +50,8 @@ def main():
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
                 popup="Your Location",
-                icon=folium.Icon(color="red", icon="car")
+                #icon=folium.Icon(color="red", icon="fa car")
+                icon=folium.Icon(icon='paper - plane', prefix='fa')
             ).add_to(folium_map)
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
@@ -64,7 +65,7 @@ def main():
             elif free_quantity == 0:
                 icon_color = "red"
             elif free_quantity <= total_quantity * 0.2:
-                icon_color = "yellow"
+                icon_color = "orange"
             else:
                 icon_color = "green"
 
