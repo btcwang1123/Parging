@@ -41,6 +41,8 @@ def main():
     data = fetch_data()
     update_time = data[0]['UPDATETIME'] if data else "無法獲取更新時間"
 
+    st.write("使用側邊欄進行搜尋")
+
     # 添加側拉式搜尋框
     st.sidebar.title("搜尋停車場")
     search_query = st.sidebar.text_input("輸入停車場名稱或地址")
@@ -100,7 +102,7 @@ def main():
             ).add_to(folium_map)
 
         folium_static(folium_map, width=350)
-        st.write(f"數據更新時間: {update_time}")
+        #st.write(f"數據更新時間: {update_time}")
 
 if __name__ == "__main__":
     main()
