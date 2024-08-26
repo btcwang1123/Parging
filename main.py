@@ -77,7 +77,7 @@ def main():
                     地址: {park['ADDRESS']}<br>
                     平日收費: {park['WEEKDAYS']}<br>
                     假日收費: {park['HOLIDAY']}<br>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank" style="text-align: center;">
                         <img src="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png" alt="導航" style="width:50px;height:50px;"><br>導航
                     </a>
                     </div>
