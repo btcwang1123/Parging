@@ -57,8 +57,8 @@ def main():
             folium_map = folium.Map(location=map_center, zoom_start=14, width=350)
 
         for park in filtered_data:
-            free_quantity = parse_int(park['FREEQUANTITY'])
-            total_quantity = parse_int(park['TOTALQUANTITY'])
+            free_quantity = park['FREEQUANTITY']
+            total_quantity = park['TOTALQUANTITY']
             if total_quantity == 0:
                 icon_color = "gray"
             elif free_quantity == 0:
