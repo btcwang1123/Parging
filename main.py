@@ -8,7 +8,25 @@ from streamlit_geolocation import streamlit_geolocation
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
-st.set_page_config(layout="centered", initial_sidebar_state="expanded", page_title="停車場搜尋", page_icon="🚗", width=350, height=800)
+# 設置頁面配置
+st.set_page_config(layout="centered", initial_sidebar_state="expanded", page_title="停車場搜尋", page_icon="🚗")
+
+# 使用 CSS 設置視窗大小
+st.markdown(
+    """
+    <style>
+    .main .block-container {
+        max-width: 350px;
+        max-height: 800px;
+        padding-top: 1rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 def fetch_data():
     response = requests.get(url)
@@ -48,6 +66,8 @@ def main():
 
     # 添加側拉式搜尋框
     st.sidebar.title("搜尋停車場")
+    if 'search_query' not in st.session_state:
+        st.session_state.search_query = ""
     search_query = st.sidebar.text_input("輸入停車場名稱或地址")
 
     filtered_data = [park for park in data if is_open_now(park['BUSINESSHOURS'])]
@@ -56,6 +76,7 @@ def main():
 
     if search_query:
         highlight_data = [park for park in filtered_data if search_query in park['PARKINGNAME'] or search_query in park['ADDRESS']]
+        st.session_state.search_query = ""
 
     if highlight_data:
         map_center = [float(highlight_data[0]['LATITUDE']), float(highlight_data[0]['LONGITUDE'])]
