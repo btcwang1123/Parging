@@ -8,6 +8,8 @@ from streamlit_geolocation import streamlit_geolocation
 # 網頁 URL
 url = "https://hispark.hccg.gov.tw/OpenData/GetParkInfo"
 
+st.set_page_config(layout="centered", initial_sidebar_state="expanded", page_title="停車場搜尋", page_icon="🚗", width=350, height=800)
+
 def fetch_data():
     response = requests.get(url)
     if response.status_code == 200:
