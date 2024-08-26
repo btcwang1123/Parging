@@ -131,7 +131,7 @@ def main():
                         <img src="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png" alt="導航" style="width:50px;height:50px;"><br>🚥導航
                     </a>
                     </div>
-                """, max_width=220),
+                """, max_width=200),
                 icon=folium.Icon(color=icon_color, icon="info-sign")
             ).add_to(folium_map)
 
