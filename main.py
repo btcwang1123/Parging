@@ -53,10 +53,10 @@ def main():
                 icon=folium.Icon(icon='paper-plane', prefix='fa')
             ).add_to(folium_map)
             folium_map.add_child(folium.Circle(location=map_center,
-                             color='lightblue', # Circle 顏色
+                             color='blue', # Circle 顏色
                              radius=300, # Circle 寬度
                              fill=True, # 填滿中間區域
-                             fill_opacity=0.5 # 設定透明度:1是完全不透
+                             fill_opacity=0.1 # 設定透明度:1是完全不透
                              ))
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
