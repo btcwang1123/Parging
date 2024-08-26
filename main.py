@@ -51,7 +51,7 @@ def main():
                 location=[location['latitude'], location['longitude']],
                 popup="Your Location",
                 #icon=folium.Icon(color="red", icon="fa car")
-                icon=folium.Icon(icon='paper - plane', prefix='fa')
+                icon=folium.Icon(icon='paper-plane', prefix='fa')
             ).add_to(folium_map)
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
