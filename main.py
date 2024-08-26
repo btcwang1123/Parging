@@ -50,7 +50,7 @@ def main():
             folium.Marker(
                 location=[location['latitude'], location['longitude']],
                 popup="Your Location",
-                icon=folium.Icon(color="red", icon="info-sign")
+                icon=folium.Icon(color="red", icon="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png")
             ).add_to(folium_map)
         else:
             map_center = [float(filtered_data[0]['LATITUDE']), float(filtered_data[0]['LONGITUDE'])]
@@ -78,7 +78,7 @@ def main():
                     平日收費: {park['WEEKDAYS']}<br>
                     假日收費: {park['HOLIDAY']}<br>
                     <a href="https://www.google.com/maps/dir/?api=1&destination={park['LATITUDE']},{park['LONGITUDE']}" target="_blank" >
-                        <img src="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png" alt="導航" style="width:50px;height:50px;"><br>🚗導航🏍️
+                        <img src="https://png.pngtree.com/png-clipart/20230917/original/pngtree-volkswagen-beetle-car-sticker-retro-clipart-vector-png-image_12270600.png" alt="導航" style="width:50px;height:50px;"><br>🚥導航
                     </a>
                     </div>
                 """, max_width=220),
