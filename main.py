@@ -118,7 +118,7 @@ def main():
         folium_static(folium_map, width=350)
         #st.write(f"數據更新時間: {update_time}")
         st.session_state.search_query = ""
-        search_query = st.sidebar.text_input("輸入停車場名稱或地址", value=st.session_state.search_query, key="search_query")
+        
 
 if __name__ == "__main__":
     main()
